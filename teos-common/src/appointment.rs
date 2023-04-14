@@ -56,18 +56,18 @@ impl hex::FromHex for Locator {
 /// Contains data regarding an appointment between a client and the tower.
 ///
 /// An appointment is requested for every new channel update.
-#[derive(Debug, Eq, PartialEq, Clone, Serialize, Deserialize)]
-pub struct Appointment {
+// #[derive(Debug, Eq, PartialEq, Clone, Serialize, Deserialize)]
+// pub struct Appointment {
     /// The user identifier for the appointment.
-    pub locator: Locator,
+//     pub locator: Locator,
     /// The encrypted blob of data to be handed to the tower.
     /// Should match an encrypted penalty transaction.
-    pub encrypted_blob: Vec<u8>,
+//     pub encrypted_blob: Vec<u8>,
     /// The delay of the `to_self` output in the penalty transaction.
     /// Can be used by the tower to decide whether the job is worth accepting or not
     /// (useful for accountable towers). Currently not used.
-    pub to_self_delay: u32,
-}
+//     pub to_self_delay: u32,
+// }
 
 /// Represents all the possible states of an appointment in the tower, or in a response to a client request.
 #[derive(Serialize, Deserialize, Debug)]
@@ -111,15 +111,15 @@ impl fmt::Display for AppointmentStatus {
     }
 }
 
-impl Appointment {
-    /// Creates a new [Appointment] instance.
-    pub fn new(locator: Locator, encrypted_blob: Vec<u8>, to_self_delay: u32) -> Self {
-        Appointment {
-            locator,
-            encrypted_blob,
-            to_self_delay,
-        }
-    }
+// impl Appointment {
+//     /// Creates a new [Appointment] instance.
+//     pub fn new(locator: Locator, encrypted_blob: Vec<u8>, to_self_delay: u32) -> Self {
+//         Appointment {
+//             locator,
+//             encrypted_blob,
+//             to_self_delay,
+//         }
+//     }
 
     /// Serializes an appointment to be signed.
     /// The serialization follows the same ordering as the fields in the appointment:
@@ -127,20 +127,21 @@ impl Appointment {
     /// `locator || encrypted_blob || to_self_delay`
     ///
     /// All values are big endian.
-    pub fn to_vec(&self) -> Vec<u8> {
-        let mut result = self.locator.to_vec();
-        result.extend(&self.encrypted_blob);
-        result.extend(self.to_self_delay.to_be_bytes().to_vec());
-        result
-    }
+//     pub fn to_vec(&self) -> Vec<u8> {
+//         let mut result = self.locator.to_vec();
+//         result.extend(&self.encrypted_blob);
+//         result.extend(self.to_self_delay.to_be_bytes().to_vec());
+//         result
+//     }
 }
 
 impl From<Appointment> for msgs::Appointment {
     fn from(a: Appointment) -> Self {
         Self {
-            locator: a.locator.to_vec(),
-            encrypted_blob: a.encrypted_blob.clone(),
-            to_self_delay: a.to_self_delay,
+//             locator: a.locator.to_vec(),
+//             encrypted_blob: a.encrypted_blob.clone(),
+//             to_self_delay: a.to_self_delay,
+            start_block();
         }
     }
 }
